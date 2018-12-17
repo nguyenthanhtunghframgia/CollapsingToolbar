@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CollapsingToolBar</string>
+    <string name="tab">Tab</string>
+    <string name="fab_title">+</string>
+    <string name="action_settings">Setting</string>
+    <string name="menu_add">Add</string>
+    <string name="item_delete">Delete</string>
+</resources>
