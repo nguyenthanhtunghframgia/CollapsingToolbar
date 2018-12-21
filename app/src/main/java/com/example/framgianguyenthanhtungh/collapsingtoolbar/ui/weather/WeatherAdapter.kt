@@ -7,8 +7,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.example.framgianguyenthanhtungh.collapsingtoolbar.R
 import com.example.framgianguyenthanhtungh.collapsingtoolbar.base.BaseRecyclerAdapter
+import com.example.framgianguyenthanhtungh.collapsingtoolbar.data.model.Weather
 import com.example.framgianguyenthanhtungh.collapsingtoolbar.databinding.ItemWeatherBinding
-import com.example.framgianguyenthanhtungh.collapsingtoolbar.model.Weather
 
 class WeatherAdapter(val onItemClick: (Weather) -> Unit) : BaseRecyclerAdapter<Weather>(
 

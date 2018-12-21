@@ -7,8 +7,8 @@ import com.example.framgianguyenthanhtungh.collapsingtoolbar.BR
 import com.example.framgianguyenthanhtungh.collapsingtoolbar.R
 import com.example.framgianguyenthanhtungh.collapsingtoolbar.base.BaseFragment
 import com.example.framgianguyenthanhtungh.collapsingtoolbar.base.RecyclerItemDecoration
+import com.example.framgianguyenthanhtungh.collapsingtoolbar.data.model.Weather
 import com.example.framgianguyenthanhtungh.collapsingtoolbar.databinding.FragmentWeatherBinding
-import com.example.framgianguyenthanhtungh.collapsingtoolbar.model.Weather
 import com.example.framgianguyenthanhtungh.collapsingtoolbar.util.ITEM_DECORATION
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -40,7 +40,11 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding, WeatherViewModel>()
 
         viewModel.apply {
             listWeather.observe(viewLifecycleOwner, Observer {
-                weatherAdapter.submitList(it)
+                weatherAdapter.submitList(listOf(it))
+            })
+
+            errorMessage.observe(viewLifecycleOwner, Observer {
+                Toast.makeText(context, errorMessage.toString(), Toast.LENGTH_LONG).show()
             })
 
             getData()

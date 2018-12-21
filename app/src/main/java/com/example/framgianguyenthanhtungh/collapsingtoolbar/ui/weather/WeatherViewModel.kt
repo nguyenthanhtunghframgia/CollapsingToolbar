@@ -1,26 +1,28 @@
 package com.example.framgianguyenthanhtungh.collapsingtoolbar.ui.weather
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import com.example.framgianguyenthanhtungh.collapsingtoolbar.base.BaseViewModel
-import com.example.framgianguyenthanhtungh.collapsingtoolbar.model.Weather
+import com.example.framgianguyenthanhtungh.collapsingtoolbar.data.model.Weather
+import com.example.framgianguyenthanhtungh.collapsingtoolbar.repository.WeatherRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-class WeatherViewModel : BaseViewModel() {
-    val listWeather = MutableLiveData<List<Weather>>()
+class WeatherViewModel(
+    private val weatherRepository: WeatherRepository
+) : BaseViewModel() {
+    val listWeather = MutableLiveData<Weather>()
+    val errorMessage = MutableLiveData<String>()
 
+    @SuppressLint("CheckResult")
     fun getData() {
-        listWeather.postValue(
-            listOf(
-                Weather(1, "Halo1"),
-                Weather(2, "Halo2"),
-                Weather(3, "Halo3"),
-                Weather(4, "Halo4"),
-                Weather(5, "Halo5"),
-                Weather(6, "Halo6"),
-                Weather(7, "Halo7"),
-                Weather(8, "Halo8"),
-                Weather(9, "Halo9"),
-                Weather(10, "Halo10")
-            )
-        )
+        weatherRepository.getWeatherByLocation("London")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                listWeather.value = it.weather ?: return@subscribe
+            }, {
+                errorMessage.value = it.message
+            })
     }
 }
