@@ -22,6 +22,13 @@ android {
         getByName(BuildType.release) {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            buildConfigField("String", "BASE_URL", "\"https://api.openweathermap.org/data/2.5/\"")
+            buildConfigField ("String", "API_KEY", "\"f379cbdb9874a4eb73071829c180eea1\"")
+        }
+
+        getByName(BuildType.debug) {
+            buildConfigField("String", "BASE_URL", "\"https://api.openweathermap.org/data/2.5/\"")
+            buildConfigField ("String", "API_KEY", "\"f379cbdb9874a4eb73071829c180eea1\"")
         }
     }
 

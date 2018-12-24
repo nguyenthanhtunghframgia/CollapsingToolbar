@@ -21,8 +21,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
-    private var isAppBarExpand: Boolean = true
     private var collapsedMenu: Menu? = null
+    private var isAppBarExtend: Boolean = true
 
     companion object {
         private const val TAB_NUMBER = 3
@@ -45,17 +45,16 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     private fun initViews() {
-
         //Appbar Layout
         val appBarLayout = findViewById<AppBarLayout>(R.id.app_bar_layout)
         appBarLayout.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
 
             override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
                 if (Math.abs(verticalOffset) > 200) {
-                    isAppBarExpand = false
+                    isAppBarExtend = false
                     invalidateOptionsMenu()
                 } else {
-                    isAppBarExpand = true
+                    isAppBarExtend = true
                     invalidateOptionsMenu()
                 }
             }
@@ -78,7 +77,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        if (collapsedMenu != null && (!isAppBarExpand || collapsedMenu!!.size() != 1)) {
+
+        if (collapsedMenu != null && (!isAppBarExtend || collapsedMenu!!.size() != 1)) {
             collapsedMenu!!.add(resources.getString(R.string.menu_add))
                 .setIcon(R.drawable.ic_action_add)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
